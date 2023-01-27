@@ -1,0 +1,15 @@
+.primaryButton {
+  height: 40px;
+  width: 120px;
+  background-color: #7281E4;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+}
+
+.primaryButton:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}

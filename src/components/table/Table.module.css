@@ -1,0 +1,9 @@
+.tableContainer {
+  max-width: 100%;
+  border: solid;
+  display: flex;
+}
+
+.tableContainer__table {
+  min-width: 100%;
+}

@@ -1,0 +1,68 @@
+
+@media screen and (max-width: 699px) {
+}
+
+@media screen and (min-width: 700px) {
+  .navbar__list {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar__list > li {
+    padding: 0px 30px 0px 30px;
+    list-style-type: none;
+    margin: 0px 5px 0px 5px;
+  }
+
+  .navbar__list > li.active {
+    border-bottom: 2px solid grey;
+  }
+
+  .navbar__list > li > a {
+    color: #000;
+    font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition-duration: 0.4s;
+    text-decoration: none;
+  }
+
+  .navbar__list > li > a:hover {
+    font-size: 30px;
+  }
+
+  .navbar {
+    height: 100px;
+    background-color: #F8F8F8;
+    border-bottom: 1px solid grey;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px 0px 20px;
+    align-items: center;
+  }
+
+  .navbar__logoContainer__logo {
+    width: auto;
+    height: auto;
+    min-width: 50%;
+    max-width: 70%;
+  }
+
+  .navbar__logoContainer {
+    display: flex;
+  }
+
+  .navbar__auth {
+    min-width: 32%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar__auth__name {
+    font-size: 20px;
+    margin-right: 20px;
+  }
+}
