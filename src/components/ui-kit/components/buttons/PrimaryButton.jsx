@@ -3,7 +3,7 @@ import classes from './PrimaryButton.module.css'
 
 const PrimaryButton = (props) => {
   return(
-    <button className={classes.primaryButton}>{props.children}</button>
+    <button onClick={props.onClick} className={classes.primaryButton}>{props.children}</button>
   )
 }
 

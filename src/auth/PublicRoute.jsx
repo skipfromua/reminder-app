@@ -6,6 +6,7 @@ import { useCurrentUser } from '../hooks/useCurrentUser'
 const PublicRoute = () => {
   const currentUser = useCurrentUser()
 
+  console.log(currentUser)
   return <Outlet />
 }
 
