@@ -3,8 +3,15 @@ import { Link } from 'react-router-dom'
 import styles from './Navbar.module.css'
 import logo from '../ui-kit/assets/logo.png'
 import PrimaryButton from '../ui-kit/components/buttons/PrimaryButton'
+import { useDispatch } from 'react-redux'
+import { applyUserSignOut } from '../../store/actions/auth'
 
 const Navbar = () => {
+  const dispatch = useDispatch()
+  const onLogOut = () => {
+    dispatch(applyUserSignOut())
+  }
+
   return(
     <nav className={styles.navbar}>
       <div className={styles.navbar__logoContainer}>
@@ -26,7 +33,7 @@ const Navbar = () => {
           Hello Oleksandr
         </div>
         <div className={styles.navbar__auth__control}>
-          <PrimaryButton>Log Out</PrimaryButton>
+          <PrimaryButton onClick={onLogOut}>Log Out</PrimaryButton>
         </div>
       </div>
     </nav>
