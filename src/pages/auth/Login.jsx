@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
 import { useDispatch } from 'react-redux'
-
+import styles from './Login.module.css'
 import { AUTH_BY_CREDENTIALS_LINK } from '../../constants/links'
 import { restRequest } from '../../utils/restAPI'
 import { applyUserSignIn } from '../../store/actions/auth'
@@ -29,17 +29,21 @@ const Login = () => {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <label>
-        Login:
-        <input type='email' name='email'/>
-      </label>
-      <label>
-        Password:
-        <input type='password' name='password' />
-      </label>
-      <input type='submit' value='Submit' />
-    </form>
+    <div className={styles.page}>
+      <div className={styles.box}>
+        <form className={styles.form} onSubmit={onSubmit}>
+          <label>
+            Login:
+            <input type='email' name='email'/>
+          </label>
+          <label>
+            Password:
+            <input type='password' name='password' />
+          </label>
+          <input type='submit' value='Submit' />
+        </form>
+      </div>
+    </div>
   )
 }
 
