@@ -24,9 +24,6 @@ const Navbar = () => {
         <li>
           <Link to="/events">Events</Link>
         </li>
-        <li>
-          <Link to="/notifications">Notifications</Link>
-        </li>
       </ul>
       <div className={styles.navbar__auth}>
         <div className={styles.navbar__auth__name}>
