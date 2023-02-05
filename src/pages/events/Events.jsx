@@ -1,50 +1,61 @@
 import React from 'react'
-import Content from '../../components/content/Content'
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { restRequest } from '../../utils/restAPI'
+import { EVENTS } from '../../constants/links'
+import { selectAuthToken } from '../../store/selectors/auth'
 import Navbar from '../../components/navbar/Navbar'
-import Table from '../../components/table/Table'
+import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import Content from '../../components/content/Content'
+
+
 
 const Events = () => {
-  return(
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'name', headerName: 'Event name', width: 300 },
+    { field: 'date', headerName: 'Date', width: 200 },
+  ];
+
+  const [rows, setRows] = useState([])
+  const authToken = useSelector(selectAuthToken)
+
+  const fetchEvents = async (event) => {
+    try {
+      const config = {
+        url: EVENTS,
+        method: 'get',
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        }
+      }
+      const response = await restRequest(config)
+      const attributes = response?.data.map((element) => { 
+        return Object.assign(element?.attributes, { id: element?.id }) 
+      })
+      setRows(attributes)
+    } catch (event) {
+      alert(event)
+    }
+  }
+
+  useEffect(()=>{
+    fetchEvents();
+  },[]) 
+
+  return (
     <>
       <Navbar />
       <Content>
-        <Table>
-          <tr>
-            <th>Company</th>
-            <th>Contact</th>
-            <th>Country</th>
-          </tr>
-          <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-          </tr>
-          <tr>
-            <td>Centro comercial Moctezuma</td>
-            <td>Francisco Chang</td>
-            <td>Mexico</td>
-          </tr>
-          <tr>
-            <td>Ernst Handel</td>
-            <td>Roland Mendel</td>
-            <td>Austria</td>
-          </tr>
-          <tr>
-            <td>Island Trading</td>
-            <td>Helen Bennett</td>
-            <td>UK</td>
-          </tr>
-          <tr>
-            <td>Laughing Bacchus Winecellars</td>
-            <td>Yoshi Tannamuri</td>
-            <td>Canada</td>
-          </tr>
-          <tr>
-            <td>Magazzini Alimentari Riuniti</td>
-            <td>Giovanni Rovelli</td>
-            <td>Italy</td>
-          </tr>
-        </Table>
+        <div style={{ height: 400, width: '100%' }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+          />
+        </div>
       </Content>
     </>
   )
