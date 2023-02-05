@@ -12,9 +12,9 @@ import Content from '../../components/content/Content'
 
 const Events = () => {
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 100 },
-    { field: 'name', headerName: 'Event name', width: 300 },
-    { field: 'date', headerName: 'Date', width: 200 },
+    { field: 'id', headerName: 'ID', minWidth: 50, maxWidth: 100, flex: 100 },
+    { field: 'name', headerName: 'Event name', minWidth: 150, maxWidth: 500, flex: 500 },
+    { field: 'date', headerName: 'Date', minWidth: 100, maxWidth: 500, flex: 500 },
   ];
 
   const [rows, setRows] = useState([])
