@@ -1,0 +1,39 @@
+
+@media screen and (max-width: 699px) {
+}
+
+@media screen and (min-width: 700px) {
+  .modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal__content {
+    border: 1px solid black;
+    border-radius: 20px;
+    width: 500px;
+    background-color: #fff;
+  }
+
+  .modal__header, .modal__footer {
+    padding: 10px;
+  }
+
+  .modal__title {
+    margin: 0;
+  }
+
+  .modal__body {
+    padding: 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+}

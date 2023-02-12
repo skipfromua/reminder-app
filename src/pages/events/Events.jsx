@@ -2,15 +2,15 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { restRequest } from '../../utils/restAPI'
-import { EVENTS } from '../../constants/links'
+import { EVENTS, DELETE_EVENTS } from '../../constants/links'
 import { selectAuthToken } from '../../store/selectors/auth'
 import Navbar from '../../components/navbar/Navbar'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import Content from '../../components/content/Content'
-import { Button } from '@mui/material'
 import { EVENT_DETAILS } from '../../constants/routes'
 import { useNavigate } from 'react-router'
 import PrimaryButton from '../../components/ui-kit/components/buttons/PrimaryButton'
+import Modal from '../../components/modal/Modal'
 
 const Events = () => {
   const navigate = useNavigate()
@@ -35,9 +35,11 @@ const Events = () => {
   ];
 
   const [rows, setRows] = useState([])
+  const [showModal, setShowModal] = useState(false)
+  const [selectedEvents, setSelectedEvents] = useState([])
   const authToken = useSelector(selectAuthToken)
 
-  const fetchEvents = async (event) => {
+  const fetchEvents = async () => {
     try {
       const config = {
         url: EVENTS,
@@ -48,9 +50,48 @@ const Events = () => {
       }
       const response = await restRequest(config)
       const attributes = response?.data.map((element) => { 
-        return Object.assign(element?.attributes, { id: element?.id }) 
+        return element?.attributes
       })
       setRows(attributes)
+    } catch (event) {
+      alert(event)
+    }
+  }
+
+  const addEvent = async (data) => {
+    try {
+      const config = {
+        url: EVENTS,
+        method: 'post',
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+        data: {
+          name: data.name.value,
+          date: data.date.value
+        }
+      }
+      const response = await restRequest(config)
+      const attributes = response?.data?.attributes
+      console.log(attributes)
+      setRows(rows.concat(attributes))
+    } catch (event) {
+      alert(event)
+    }
+  }
+
+  const deleteEvent = async () => {
+    try {
+      const config = {
+        url: DELETE_EVENTS,
+        method: 'delete',
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+        data: { eventIds: selectedEvents }
+      }
+      const response = await restRequest(config)
+      setRows(rows.filter(element => !response?.data?.map(el => el?.attributes?.id).includes(element.id)))
     } catch (event) {
       alert(event)
     }
@@ -64,6 +105,20 @@ const Events = () => {
     <>
       <Navbar />
       <Content>
+        <Modal
+          title='Add Event'
+          show={showModal}
+          setShow={setShowModal}
+          onConfirm={addEvent}
+        >
+          <label>Name Of Event: </label>
+          <input type='email' id='name'></input>
+          <label>Date Of Event: </label>
+          <input type='datetime-local' id='date'></input>
+
+        </Modal>
+        <PrimaryButton onClick={() => {setShowModal(true)}}>Add Event</PrimaryButton>
+        <PrimaryButton onClick={deleteEvent}>Remove Events</PrimaryButton>
         <div style={{ height: 400, width: '100%' }}>
           <DataGrid
             rows={rows}
@@ -73,6 +128,7 @@ const Events = () => {
             autoHeight={true}
             rowsPerPageOptions={[5]}
             checkboxSelection
+            onSelectionModelChange={itm => setSelectedEvents(itm)}
           />
         </div>
       </Content>

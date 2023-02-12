@@ -32,7 +32,6 @@ const Notifications = () => {
         }
       }
       const response = await restRequest(config)
-      console.log(response)
       const attributes = response?.data.map((element) => { 
         return Object.assign(element?.attributes, { id: element?.id }) 
       })
