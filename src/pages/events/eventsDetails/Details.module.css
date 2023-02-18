@@ -1,0 +1,16 @@
+.box {
+  display: flex;
+  align-items: center;
+}
+
+.leftColumn {
+  display: inline-block;
+  align-items: center;
+  width: 70%;
+  margin: 5px;
+}
+
+.rightColumn {
+  width: 30%;
+  margin: 5px;
+}

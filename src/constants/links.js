@@ -2,4 +2,7 @@ export const AUTH_BY_CREDENTIALS_LINK = '/auth/sessions'
 export const REGISTRATION_LINK = '/auth/registrations'
 export const EVENTS = '/rest/v1/events'
 export const DELETE_EVENTS = '/rest/v1/events/delete_events'
-export const NOTIFICATIONS = (event_id) => { return `/rest/v1/events/${event_id}/notifications` }
+export const NOTIFICATIONS = '/rest/v1/events/:event_id/notifications'
+export const DELETE_NOTIFICATIONS = '/rest/v1/events/:event_id/notifications/delete_notifications'
+export const TODO_LISTS = '/rest/v1/events/:event_id/todo_lists'
+export const DELETE_TODO_LISTS = '/rest/v1/events/:event_id/todo_lists/delete_todo_lists'

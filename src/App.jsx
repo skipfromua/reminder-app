@@ -10,7 +10,7 @@ import PrivateRoute from  "./auth/PrivateRoute"
 import PublicRoute from  "./auth/PublicRoute"
 import NotFound from './pages/NotFound'
 import Login from "./pages/auth/Login";
-import Notifications from "./pages/events/eventDetails/Notifications";
+import Details from "./pages/events/eventsDetails/Details";
 
 const App = () => {
   return (
@@ -25,7 +25,7 @@ const App = () => {
         <Route element={<PrivateRoute />}>
           <Route element={<Dashboard />} path="/" />
           <Route element={<Events />} path="/events" />
-          <Route element={<Notifications />} path="/events/:eventId/*" />
+          <Route element={<Details />} path="/events/:eventId/*" />
         </Route>
       </Routes>
     </div>

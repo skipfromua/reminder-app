@@ -8,7 +8,7 @@ import Navbar from '../../components/navbar/Navbar'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import Content from '../../components/content/Content'
 import { EVENT_DETAILS } from '../../constants/routes'
-import { useNavigate } from 'react-router'
+import { useNavigate, generatePath } from 'react-router'
 import PrimaryButton from '../../components/ui-kit/components/buttons/PrimaryButton'
 import Modal from '../../components/modal/Modal'
 
@@ -17,7 +17,7 @@ const Events = () => {
 
   const onClick = (e, cv) => {
     e.stopPropagation();
-    navigate(EVENT_DETAILS(cv.id))
+    navigate(generatePath(EVENT_DETAILS, { event_id: cv.id }))
   }
 
   const columns: GridColDef[] = [
@@ -73,7 +73,6 @@ const Events = () => {
       }
       const response = await restRequest(config)
       const attributes = response?.data?.attributes
-      console.log(attributes)
       setRows(rows.concat(attributes))
     } catch (event) {
       alert(event)
