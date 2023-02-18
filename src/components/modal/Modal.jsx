@@ -27,7 +27,7 @@ const Modal = (props) => {
             <div className={styles.modal__title}>{props.title}</div>
           </div>
           <div className={styles.modal__body}>
-            <form ref={formRef}>
+            <form className={styles.modal__body__table} ref={formRef}>
               {props.children}
             </form>
           </div>

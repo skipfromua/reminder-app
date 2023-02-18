@@ -17,7 +17,7 @@ const Notifications = () => {
     { field: 'id', headerName: 'ID', minWidth: 30, maxWidth: 100, flex: 100 },
     { field: 'enabled', headerName: 'Enabled', minWidth: 30, maxWidth: 500, flex: 300 },
     { field: 'startNotifyingDaysBefore', headerName: 'Start Notiying', minWidth: 50, maxWidth: 500, flex: 500 },
-    { field: 'notifyingAt', headerName: 'Notification Time', minWidth: 70, maxWidth: 500, flex: 500 },
+    { field: 'notifyAt', headerName: 'Notification Time', minWidth: 70, maxWidth: 500, flex: 500 },
   ];
 
   const [notificationRows, setNotificationRows] = useState([])
@@ -90,7 +90,6 @@ const Notifications = () => {
 
   return(
     <>
-      <div className={styles.title}>Notifiers</div>
       <Modal
         title='Add Notificaiotn'
         show={showModal}
@@ -100,13 +99,18 @@ const Notifications = () => {
         <label>Enabled: </label>
         <input type='checkbox' id='enabled'></input>
         <label>Start Notifying Days Before: </label>
-        <input type='number' id='start_notifying_days_before'></input>
+        <input type='number' min='1' max='31' id='start_notifying_days_before'></input>
         <label>Notify At: </label>
         <input type='time' id='notify_at'></input>
-
       </Modal>
-      <PrimaryButton onClick={() => {setShowModal(true)}}>Add</PrimaryButton>
-      <PrimaryButton onClick={deleteNotifications}>Delete Selected</PrimaryButton>
+
+      <div className={styles.title}>
+        Notifiers
+      </div>
+      <div className={styles.buttons}>
+        <PrimaryButton onClick={() => {setShowModal(true)}}>Add</PrimaryButton>
+        <PrimaryButton onClick={deleteNotifications}>Delete Selected</PrimaryButton>
+      </div>
       <div className={styles.table}>
         <DataGrid
           rows={notificationRows}

@@ -94,9 +94,13 @@ const TodoLists = () => {
         <label>Plan: </label>
         <input type='text' id='memo'></input>
       </Modal>
-      <div className={styles.title}>Plans</div>
-      <PrimaryButton onClick={() => {setShowModal(true)}}>Add</PrimaryButton>
-      <PrimaryButton onClick={deleteTodoLists}>Delete Selected</PrimaryButton>
+      <div className={styles.title}>
+        Plans
+      </div>
+      <div className={styles.buttons}>
+        <PrimaryButton onClick={() => {setShowModal(true)}}>Add</PrimaryButton>
+        <PrimaryButton onClick={deleteTodoLists}>Delete Selected</PrimaryButton>
+      </div>
       <div className={styles.table}>
         <DataGrid
           rows={todoListRows}
