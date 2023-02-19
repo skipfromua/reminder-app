@@ -11,6 +11,9 @@ import { EVENT_DETAILS } from '../../constants/routes'
 import { useNavigate, generatePath } from 'react-router'
 import PrimaryButton from '../../components/ui-kit/components/buttons/PrimaryButton'
 import Modal from '../../components/modal/Modal'
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import TextField from '@mui/material/TextField';
+import styles from './Events.module.css'
 
 const Events = () => {
   const navigate = useNavigate()
@@ -38,6 +41,13 @@ const Events = () => {
   const [showModal, setShowModal] = useState(false)
   const [selectedEvents, setSelectedEvents] = useState([])
   const authToken = useSelector(selectAuthToken)
+
+  const [datePickerValue, setDatePickerValue] = useState(Date(Date.now()))
+
+  const handleChange = (newValue) => {
+    setDatePickerValue(newValue);
+  }
+
 
   const fetchEvents = async () => {
     try {
@@ -68,7 +78,7 @@ const Events = () => {
         },
         data: {
           name: data.name.value,
-          date: data.date.value
+          date: datePickerValue
         }
       }
       const response = await restRequest(config)
@@ -113,8 +123,14 @@ const Events = () => {
           <label>Name Of Event: </label>
           <input type='email' id='name'></input>
           <label>Date Of Event: </label>
-          <input type='datetime-local' id='date'></input>
-
+          <DesktopDatePicker
+            label="Date"
+            inputFormat="MM/DD/YYYY"
+            value={datePickerValue}
+            onChange={handleChange}
+            className={styles.timePicker}
+            renderInput={(params) => <TextField {...params} />}
+          />
         </Modal>
         <PrimaryButton onClick={() => {setShowModal(true)}}>Add Event</PrimaryButton>
         <PrimaryButton onClick={deleteEvent}>Remove Events</PrimaryButton>

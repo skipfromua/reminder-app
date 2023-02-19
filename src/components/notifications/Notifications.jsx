@@ -9,7 +9,8 @@ import { useParams, generatePath } from 'react-router'
 import styles from './Notifications.module.css'
 import Modal from '../modal/Modal'
 import PrimaryButton from '../ui-kit/components/buttons/PrimaryButton'
-
+import TextField from '@mui/material/TextField';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 const Notifications = () => {
   const { eventId } = useParams()
@@ -24,6 +25,12 @@ const Notifications = () => {
   const [selectedNotifications, setSelectedNotifications] = useState([])
   const [showModal, setShowModal] = useState(false)
   const authToken = useSelector(selectAuthToken)
+
+  const [timePickerValue, setTimePickerValue] = useState(Date(Date.now()))
+
+  const handleChange = (newValue) => {
+    setTimePickerValue(newValue);
+  }
 
   const fetchNotifications = async (event) => {
     try {
@@ -55,7 +62,7 @@ const Notifications = () => {
         data: {
           enabled: data.enabled.value,
           start_notifying_days_before: data.start_notifying_days_before.value,
-          notify_at: data.notify_at.value,
+          notify_at: timePickerValue,
           event_id: eventId
         }
       }
@@ -101,7 +108,13 @@ const Notifications = () => {
         <label>Start Notifying Days Before: </label>
         <input type='number' min='1' max='31' id='start_notifying_days_before'></input>
         <label>Notify At: </label>
-        <input type='time' id='notify_at'></input>
+        <TimePicker
+          label="Time"
+          value={timePickerValue}
+          onChange={handleChange}
+          className={styles.timePicker}
+          renderInput={(params) => <TextField {...params} />}
+        />
       </Modal>
 
       <div className={styles.title}>
