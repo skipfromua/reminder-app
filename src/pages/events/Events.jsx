@@ -11,8 +11,8 @@ import { EVENT_DETAILS } from '../../constants/routes'
 import { useNavigate, generatePath } from 'react-router'
 import PrimaryButton from '../../components/ui-kit/components/buttons/PrimaryButton'
 import Modal from '../../components/modal/Modal'
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import TextField from '@mui/material/TextField';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
+import TextField from '@mui/material/TextField'
 import styles from './Events.module.css'
 
 const Events = () => {
@@ -41,11 +41,12 @@ const Events = () => {
   const [showModal, setShowModal] = useState(false)
   const [selectedEvents, setSelectedEvents] = useState([])
   const authToken = useSelector(selectAuthToken)
-
-  const [datePickerValue, setDatePickerValue] = useState(Date(Date.now()))
+  
+  const [eventName, setEventName] = useState('')
+  const [date, setDate] = useState(Date(Date.now()))
 
   const handleChange = (newValue) => {
-    setDatePickerValue(newValue);
+    setDate(newValue);
   }
 
 
@@ -77,8 +78,8 @@ const Events = () => {
           Authorization: `Bearer ${authToken}`,
         },
         data: {
-          name: data.name.value,
-          date: datePickerValue
+          name: eventName,
+          date: date
         }
       }
       const response = await restRequest(config)
@@ -121,14 +122,18 @@ const Events = () => {
           onConfirm={addEvent}
         >
           <label>Name Of Event: </label>
-          <input type='email' id='name'></input>
+          <TextField 
+            value={eventName}
+            className={styles.input}
+            onChange={(event) => { setEventName(event?.target?.value) }}
+          />
           <label>Date Of Event: </label>
           <DesktopDatePicker
             label="Date"
             inputFormat="MM/DD/YYYY"
-            value={datePickerValue}
+            value={date}
             onChange={handleChange}
-            className={styles.timePicker}
+            className={styles.input}
             renderInput={(params) => <TextField {...params} />}
           />
         </Modal>

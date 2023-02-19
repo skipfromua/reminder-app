@@ -9,6 +9,7 @@ import { useParams, generatePath } from 'react-router'
 import styles from './TodoLists.module.css'
 import Modal from '../modal/Modal'
 import PrimaryButton from '../ui-kit/components/buttons/PrimaryButton'
+import { TextField } from '@mui/material'
 
 const TodoLists = () => {
   const { eventId } = useParams()
@@ -21,6 +22,8 @@ const TodoLists = () => {
   const [showModal, setShowModal] = useState(false)
   const [todoListRows, setTodoListRows] = useState([])
   const authToken = useSelector(selectAuthToken)
+
+  const [todo, setTodo] = useState('')
 
   const fetchTodoLists = async (event) => {
     try {
@@ -50,7 +53,7 @@ const TodoLists = () => {
           Authorization: `Bearer ${authToken}`,
         },
         data: {
-          memo: data.memo.value,
+          memo: todo,
           event_id: eventId
         }
       }
@@ -92,7 +95,12 @@ const TodoLists = () => {
         onConfirm={addTodoList}
       >
         <label>Plan: </label>
-        <input type='text' id='memo'></input>
+        <TextField 
+          value={todo}
+          margin="dense"
+          className={styles.input}
+          onChange={(event) => { setTodo(event?.target?.value) }}
+        />
       </Modal>
       <div className={styles.title}>
         Plans

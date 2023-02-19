@@ -9,8 +9,8 @@ import { useParams, generatePath } from 'react-router'
 import styles from './Notifications.module.css'
 import Modal from '../modal/Modal'
 import PrimaryButton from '../ui-kit/components/buttons/PrimaryButton'
-import TextField from '@mui/material/TextField';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import TextField from '@mui/material/TextField'
+import { TimePicker } from '@mui/x-date-pickers/TimePicker'
 
 const Notifications = () => {
   const { eventId } = useParams()
@@ -27,9 +27,15 @@ const Notifications = () => {
   const authToken = useSelector(selectAuthToken)
 
   const [timePickerValue, setTimePickerValue] = useState(Date(Date.now()))
+  const [startNotifying, setStartNotifying] = useState('')
 
   const handleChange = (newValue) => {
-    setTimePickerValue(newValue);
+    setTimePickerValue(newValue)
+  }
+
+  const clearStates = () => {
+    setTimePickerValue(Date(Date.now()))
+    setStartNotifying('')
   }
 
   const fetchNotifications = async (event) => {
@@ -61,7 +67,7 @@ const Notifications = () => {
         },
         data: {
           enabled: data.enabled.value,
-          start_notifying_days_before: data.start_notifying_days_before.value,
+          start_notifying_days_before: startNotifying,
           notify_at: timePickerValue,
           event_id: eventId
         }
@@ -69,6 +75,7 @@ const Notifications = () => {
       const response = await restRequest(config)
       const attributes = response?.data?.attributes
       setNotificationRows(notificationRows.concat(attributes))
+      clearStates()
     } catch (event) {
       alert(event)
     }
@@ -106,13 +113,19 @@ const Notifications = () => {
         <label>Enabled: </label>
         <input type='checkbox' id='enabled'></input>
         <label>Start Notifying Days Before: </label>
-        <input type='number' min='1' max='31' id='start_notifying_days_before'></input>
+        <TextField 
+            value={startNotifying}
+            type="email"
+            margin="dense"
+            className={styles.input}
+            onChange={(event) => { setStartNotifying(event?.target?.value) }}
+          />
         <label>Notify At: </label>
         <TimePicker
           label="Time"
           value={timePickerValue}
           onChange={handleChange}
-          className={styles.timePicker}
+          className={styles.input}
           renderInput={(params) => <TextField {...params} />}
         />
       </Modal>
