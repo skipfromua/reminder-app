@@ -1,0 +1,21 @@
+.css-hlj6pa-MuiDialogActions-root {
+  display: none !important;
+}
+
+.css-z3au5x-MuiButtonBase-root-MuiIconButton-root-MuiPickersToolbar-penIconButton {
+  display: none !important;
+}
+
+
+.css-1hbyad5-MuiTypography-root {
+  display: none !important;
+}
+
+.css-6t5f1e-MuiDayPicker-monthContainer {
+  overflow: visible !important;
+}
+
+.calendar {
+  display: flex;
+  align-items: center;
+}

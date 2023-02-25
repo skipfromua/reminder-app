@@ -49,7 +49,6 @@ const Events = () => {
     setDate(newValue);
   }
 
-
   const fetchEvents = async () => {
     try {
       const config = {
