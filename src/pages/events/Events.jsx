@@ -43,10 +43,10 @@ const Events = () => {
   const authToken = useSelector(selectAuthToken)
   
   const [eventName, setEventName] = useState('')
-  const [date, setDate] = useState(Date(Date.now()))
+  const [date, setDate] = useState(Date())
 
   const handleChange = (newValue) => {
-    setDate(newValue);
+    setDate(newValue.toDate());
   }
 
   const fetchEvents = async () => {
@@ -81,6 +81,7 @@ const Events = () => {
           date: date
         }
       }
+      console.log(date)
       const response = await restRequest(config)
       const attributes = response?.data?.attributes
       setRows(rows.concat(attributes))
@@ -143,7 +144,6 @@ const Events = () => {
             rows={rows}
             columns={columns}
             pageSize={5}
-            hideFooter={true}
             autoHeight={true}
             rowsPerPageOptions={[5]}
             checkboxSelection

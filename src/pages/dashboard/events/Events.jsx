@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectEvents } from '../../../store/selectors/events'
 import { useEffect } from 'react'
+import './Events.css'
 
 const Events = () => {
   const events = useSelector(selectEvents)
@@ -14,7 +15,6 @@ const Events = () => {
   ];
 
   useEffect(() => {
-    console.log(events)
     setRows(events)
   }, [events])
 
@@ -26,7 +26,7 @@ const Events = () => {
         pageSize={5}
         hideFooter={true}
         autoHeight={true}
-        rowsPerPageOptions={[5]}
+        rowsPerPageOptions={[10]}
       />
     </div>
   )

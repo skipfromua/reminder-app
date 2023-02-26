@@ -139,6 +139,7 @@ const Notifications = () => {
       </div>
       <div className={styles.table}>
         <DataGrid
+          className={styles.back}
           rows={notificationRows}
           columns={notificationColumns}
           pageSize={5}

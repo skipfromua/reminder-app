@@ -93,12 +93,13 @@ const TodoLists = () => {
         show={showModal}
         setShow={setShowModal}
         onConfirm={addTodoList}
+        className={styles.front}
       >
         <label>Plan: </label>
         <TextField 
           value={todo}
           margin="dense"
-          className={styles.input}
+          className={styles.input, styles.back}
           onChange={(event) => { setTodo(event?.target?.value) }}
         />
       </Modal>
@@ -111,6 +112,7 @@ const TodoLists = () => {
       </div>
       <div className={styles.table}>
         <DataGrid
+          className={styles.back}
           rows={todoListRows}
           columns={todoListColumns}
           pageSize={5}
