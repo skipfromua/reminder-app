@@ -11,6 +11,7 @@ const Events = () => {
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', minWidth: 50, maxWidth: 100, flex: 100 },
     { field: 'name', headerName: 'Event Name', minWidth: 150, maxWidth: 500, flex: 500 },
+    { field: 'date', headerName: 'Date', minWidth: 100, maxWidth: 500, flex: 500 },
   ];
 
   useEffect(() => {
