@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectEvents } from '../../../store/selectors/events'
 import { useEffect } from 'react'
-import './Events.css'
 
 const Events = () => {
   const events = useSelector(selectEvents)

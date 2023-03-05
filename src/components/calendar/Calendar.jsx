@@ -15,11 +15,19 @@ const Calendar = () => {
   const dispatch = useDispatch()
   const authToken = useSelector(selectAuthToken)
   const [date, setDate] = useState(Date())
-  const [eventsCount, setEventsCount] = useState(0)
   const [highlightedDays, setHighlightedDays] = useState([])
   const getDay = (date) => {
     return Number(date.split('-')[1])
   } 
+
+  const eventsCount = (highlightedDays, day) => {
+    return highlightedDays.reduce((count, element) => {
+      if (element === day) {
+        count++;
+      }
+      return count;
+    }, 0);
+  }
 
   const fetchEventsForMonth = async (month) => {
     try {
@@ -36,7 +44,6 @@ const Calendar = () => {
         }
       }
       const response = await restRequest(config)
-      setEventsCount(response?.data?.length)
       const eventDays = response?.data.map((element) => { 
         return getDay(element?.attributes?.date)
       })
@@ -77,7 +84,7 @@ const Calendar = () => {
               key={day.toString()}
               overlap="circular"
               color="success"
-              badgeContent={isSelected ? eventsCount : undefined}
+              badgeContent={isSelected ? eventsCount(highlightedDays, day.date()) : undefined}
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',

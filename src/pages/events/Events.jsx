@@ -81,7 +81,6 @@ const Events = () => {
           date: date
         }
       }
-      console.log(date)
       const response = await restRequest(config)
       const attributes = response?.data?.attributes
       setRows(rows.concat(attributes))
@@ -141,6 +140,7 @@ const Events = () => {
         <PrimaryButton onClick={deleteEvent}>Remove Events</PrimaryButton>
         <div style={{ height: 400, width: '100%' }}>
           <DataGrid
+            className={styles.back}
             rows={rows}
             columns={columns}
             pageSize={5}

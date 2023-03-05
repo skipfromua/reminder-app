@@ -3,3 +3,7 @@
   height: 30px;
   width:  200px;
 }
+
+.back {
+  z-index: 0;
+}
