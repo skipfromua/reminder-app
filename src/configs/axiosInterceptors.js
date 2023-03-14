@@ -2,6 +2,8 @@ import axios from 'axios'
 import { merge } from 'lodash'
 import { camelizeKeys } from 'humps'
 import appConfig from './appConfig'
+import store from '../store'
+import { applyUserSignOut } from '../store/actions/auth'
 
 const interceptRequests = () => {
   axios.defaults.baseURL = appConfig.API_URL
@@ -20,8 +22,15 @@ const interceptRequests = () => {
   )
 }
 
+
 const interceptResponses = () => {
-  axios.interceptors.response.use((response) => camelizeKeys(response.data))
+  axios.interceptors.response.use((response) => {
+    return camelizeKeys(response.data)
+  },
+  (error) => {
+    store.dispatch(applyUserSignOut())
+    return Promise.reject(error);
+  })
 }
 
 const enableAxiosInterceptors = () => {
